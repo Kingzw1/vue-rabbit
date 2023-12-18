@@ -9,9 +9,7 @@ export const useCategoryStore = defineStore('category', () => {
     // 获取导航数据的方法
     const getCategory = async () => {
         const res = await getCategoryAPI();
-        console.log(res);
         categoryList.value = res.data.result;
-        console.log(categoryList.value);
     };
     return {
         categoryList,
