@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <el-button type="warning">Warning</el-button>
+  <el-button type="primary">Warning</el-button>
 </template>
 
 <style scoped>
