@@ -31,6 +31,24 @@ const rules = {
     },
   ],
 };
+// 3.获取form实例做统一校验
+const formRef = ref(null);
+const doLogin = () => {
+  // 4.调用form实例的validate方法做统一校验
+  formRef.value.validate((valid) => {
+    // valid就是校验的结果 true通过 false不通过
+    if (valid) {
+      // 校验通过
+      console.log("校验通过");
+    } else {
+      // 校验失败
+      console.log("校验失败");
+    }
+  });
+};
+// 1.用户名和密码 只需要通过简单的配置(看文档的方式 - 复杂功能通过多个不同组件拆解)
+// 2.同意协议 需要自定义校验规则 validator:(rule,value,callback)=>{}
+// 3.同一效验 通过调用form实例的validate方法 -> true 校验通过 false 校验失败
 </script>
 
 
@@ -56,6 +74,7 @@ const rules = {
         <div class="account-box">
           <div class="form">
             <el-form
+              ref="formRef"
               :model="form"
               :rules="rules"
               label-position="right"
@@ -73,7 +92,9 @@ const rules = {
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin"
+                >点击登录</el-button
+              >
             </el-form>
           </div>
         </div>
