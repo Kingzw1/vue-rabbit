@@ -2,10 +2,11 @@
 // 表单效验(账号名+密码)
 
 import { ref } from "vue";
-import { loginAPI } from "@/apis/user";
 import "element-plus/theme-chalk/el-message.css";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
+const userStore = useUserStore();
 // 1.准备表单对象
 const form = ref({
   account: "",
@@ -44,8 +45,7 @@ const doLogin = () => {
     // valid就是校验的结果 true通过 false不通过
     if (valid) {
       // 校验通过
-      const res = await loginAPI({ account, password });
-      console.log(res);
+      await userStore.getUserInfo({ account, password });
       // 登录成功
       // 1.提示用户
       ElMessage({ message: "登录成功", type: "success" });
