@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ElMessage } from "element-plus";
 import { useUserStore } from "@/stores/user";
+import router from "@/router";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'; // 导入样式
 const httpInstance = axios.create({
@@ -32,8 +33,16 @@ httpInstance.interceptors.response.use(function (response) {
   NProgress.done();
     return response;
 }, function (error) {
+    const userStore=useUserStore();
     // 统一错误提示
     ElMessage({type:'warning',message:error.response.data.message})
+    // 401token失效处理
+    // 1.清除本地用户数据
+    // 2.跳转登入
+    if(error.response.status===401){
+        userStore.clearUserInfo
+        router.push('/login')
+        }
     return Promise.reject(error);
 });
 export default httpInstance
