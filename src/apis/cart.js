@@ -13,7 +13,7 @@ export const insertCartAPI = ({ skuId, count }) => {
   });
 };
 
-// 过去最新的购物车列表
+// 获取最新的购物车列表
 export const findCartListAPI = () => {
   return httpInstance({
     url: "/member/cart",

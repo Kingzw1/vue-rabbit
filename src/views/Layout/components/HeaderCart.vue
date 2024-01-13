@@ -1,6 +1,14 @@
 <script setup>
 import { useCartStore } from "@/stores/cartStore";
+import { useUserStore } from "@/stores/user";
+import { onMounted } from "vue";
 const cartStore = useCartStore();
+const userStore = useUserStore();
+onMounted(() => {
+  if (userStore.userInfo.token) {
+    cartStore.updateNewList();
+  }
+});
 </script>
 
 <template>
