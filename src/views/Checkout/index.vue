@@ -17,6 +17,16 @@ onMounted(() => getCheckInfo());
 
 // 控制弹窗打开
 const toggleFlag = ref(false);
+
+// 切换地址
+const activeAddress = ref({});
+const switchAddress = (item) => {
+  activeAddress.value = item;
+};
+const confirm = () => {
+  curAddress.value = activeAddress.value;
+  toggleFlag.value = false;
+};
 </script>
 
 <template>
@@ -136,8 +146,10 @@ const toggleFlag = ref(false);
     <div class="addressWrapper">
       <div
         class="text item"
+        :class="{ active: item.id === activeAddress.id }"
         v-for="item in checkInfo.userAddresses"
         :key="item.id"
+        @click="switchAddress(item)"
       >
         <ul>
           <li>
@@ -151,7 +163,7 @@ const toggleFlag = ref(false);
     <template #footer>
       <span class="dialog-footer">
         <el-button>取消</el-button>
-        <el-button type="primary">确定</el-button>
+        <el-button type="primary" @click="confirm">确定</el-button>
       </span>
     </template>
   </el-dialog>
